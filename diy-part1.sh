@@ -13,10 +13,21 @@
 # Add a feed source
 sed -i '$a src-git helloworld https://github.com/fw876/helloworld' feeds.conf.default
 
-#关机（增加关机功能）
-sed -i '$a src-git poweroff https://github.com/esirplayground/luci-app-poweroff.git' feeds.conf.default
-
 mkdir package/diy
+#关机（增加关机功能）
+git clone --depth=1 https://github.com/esirplayground/luci-app-poweroff package/diy/luci-app-poweroff
+# 获取luci-app-ssr-plus缺失的依赖
+pushd package/diy
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shadowsocksr-libev
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/pdnsd-alt
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/microsocks
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/dns2socks
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/simple-obfs
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/v2ray-plugin
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/trojan
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/ipt2socks
+svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/redsocks2
+popd
 # 获取luci-app-passwall以及缺失的依赖
 pushd package/diy
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/luci-app-passwall

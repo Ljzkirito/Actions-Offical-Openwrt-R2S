@@ -29,10 +29,10 @@ pushd po2lmo
 make && sudo make install
 popd
 # Convert Translation
-cp ../convert-translation.sh .
+cp $GITHUB_WORKSPACE/convert-translation.sh .
 chmod +x ./convert-translation.sh
 ./convert-translation.sh || true
 # Remove upx
-cp ../remove-upx.sh .
+cp $GITHUB_WORKSPACE/remove-upx.sh .
 chmod +x ./remove-upx.sh
 ./remove-upx.sh || true

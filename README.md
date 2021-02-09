@@ -25,9 +25,8 @@ sudo sed -i 's#http://security.ubuntu.com#https://mirrors.huaweicloud.com#' /etc
 sudo apt update
 sudo apt upgrade -y
 sudo apt-get -y install subversion libncurses5-dev git git-core build-essential unzip bzip2 python2.7
-git clone https://github.com/coolsnowwolf/lede
-cd lede
-sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
+git clone https://git.openwrt.org/openwrt/openwrt.git
+cd openwrt
 ./scripts/feeds update -a && ./scripts/feeds install -a
 make menuconfig
 make defconfig

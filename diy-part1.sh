@@ -46,3 +46,5 @@ cp package/diy/luci-app-diskman/Parted.Makefile package/diy/parted/Makefile
 # Add luci-theme-argon
 git clone --depth=1 https://github.com/jerrykuku/luci-theme-argon package/diy/luci-theme-argon
 git clone --depth=1 https://github.com/jerrykuku/luci-app-argon-config package/diy/luci-app-argon-config
+# Change dnsmasq to dnsmasq-full
+sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk

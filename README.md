@@ -10,8 +10,7 @@
 - IPv6支持
 - [SSR(Helloworld)](https://github.com/fw876/helloworld)
 - [Passwall](https://github.com/xiaorouji/openwrt-passwall/tree/main/luci-app-passwall)
-- UPnP
-- 动态 DNS
+- [UPnP 2.2.1-2](https://github.com/Ljzkirito/openwrt-packages/tree/main/miniupnpd)
 - 网络唤醒
 - Argon 主题
 
@@ -34,12 +33,6 @@ make defconfig
 ```
 进入目录`\\wsl$\Ubuntu*\home\*\lede`复制一下这个`seed.config`的文本内容到项目根目录的`.config`文件中，这样就不用每次都SSH连接到 Actions生成编译配置，真正一键编译。
 - 差分文件seed.config[参考来源](https://github.com/coolsnowwolf/lede/issues/2288)
-
-## Custom files（自定义文件）
-
-- 自定义文件 “files 大法”是把你自定义的配置编译到固件里。这样升级或恢复出厂设置都不需要保留配置，缺省值就是自定义的配置。
-- 如你现在的network设置编译进固件：首先提取路由固件下的`\etc\config\network` 然后在项目根目录下创建files目录并`push` 到 `\files\etc\config\network `，最后编译出来的固件就是现在设置的network。
-- 另外使用“files 大法”仓库最好设为私有，否则你的配置信息，如宽带账号等会公开在网上。
 
 ## 相关参考
 

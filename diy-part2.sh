@@ -23,16 +23,3 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/M
 # Custom miniupnp
 sed -i 's/ipv6_disable\ 0/ipv6_disable\ 1/' feeds/packages/net/miniupnpd/files/miniupnpd.init                       #默认关闭ipv6
 sed -i 's/ext_ip_reserved_ignore\ 0/ext_ip_reserved_ignore\ 1/' feeds/packages/net/miniupnpd/files/miniupnpd.init   #默认关闭保留地址检查
-# Add po2lmo
-git clone https://github.com/openwrt-dev/po2lmo.git
-pushd po2lmo
-make && sudo make install
-popd
-# Convert Translation
-cp $GITHUB_WORKSPACE/convert-translation.sh .
-chmod +x ./convert-translation.sh
-./convert-translation.sh || true
-# Remove upx
-cp $GITHUB_WORKSPACE/remove-upx.sh .
-chmod +x ./remove-upx.sh
-./remove-upx.sh || true

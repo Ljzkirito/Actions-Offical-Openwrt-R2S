@@ -39,12 +39,8 @@ svn co https://github.com/xiaorouji/openwrt-passwall/trunk/chinadns-ng
 popd
 # Add luci-app-adguardhome
 svn co https://github.com/Lienol/openwrt/trunk/package/diy/luci-app-adguardhome package/diy/luci-app-adguardhome
-# Add luci-app-diskman
-git clone --depth=1 https://github.com/SuLingGG/luci-app-diskman package/diy/luci-app-diskman
-mkdir package/diy/parted
-cp package/diy/luci-app-diskman/Parted.Makefile package/diy/parted/Makefile
 # Add luci-theme-argon
 git clone --depth=1 https://github.com/jerrykuku/luci-theme-argon package/diy/luci-theme-argon
-git clone --depth=1 https://github.com/jerrykuku/luci-app-argon-config package/diy/luci-app-argon-config
+#git clone --depth=1 https://github.com/jerrykuku/luci-app-argon-config package/diy/luci-app-argon-config
 # Change dnsmasq to dnsmasq-full
 sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk

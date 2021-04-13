@@ -1,6 +1,6 @@
 # Github Actions Openwrt R2S
 
-- Openwrt源码是[openwrt/openwrt](https://github.com/openwrt/openwrt)。
+- Openwrt源码是[openwrt/openwrt](https://github.com/openwrt/openwrt/tree/openwrt-21.02)，分支openwrt-21.02。
 - Github Actions来自于[P3TERX/Actions-OpenWrt](https://github.com/P3TERX/Actions-OpenWrt)，[中文教程](https://p3terx.com/archives/build-openwrt-with-github-actions.html)。
 - 编译目标为R2S
 

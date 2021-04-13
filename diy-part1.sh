@@ -14,8 +14,6 @@
 sed -i '$a src-git helloworld https://github.com/fw876/helloworld' feeds.conf.default
 
 mkdir package/diy
-#关机（增加关机功能）
-git clone --depth=1 https://github.com/esirplayground/luci-app-poweroff package/diy/luci-app-poweroff
 # 获取luci-app-ssr-plus缺失的依赖
 pushd package/diy
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/shadowsocksr-libev
@@ -31,16 +29,20 @@ popd
 # 获取luci-app-passwall以及缺失的依赖
 pushd package/diy
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/luci-app-passwall
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/ssocks
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-plus
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/brook
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/chinadns-ng
 popd
-# Add luci-app-adguardhome
-svn co https://github.com/Lienol/openwrt/trunk/package/diy/luci-app-adguardhome package/diy/luci-app-adguardhome
 # Add luci-theme-argon
 git clone --depth=1 https://github.com/jerrykuku/luci-theme-argon package/diy/luci-theme-argon
 #git clone --depth=1 https://github.com/jerrykuku/luci-app-argon-config package/diy/luci-app-argon-config
 # Change dnsmasq to dnsmasq-full
 sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
+# 使用官方ppp 2.4.9
+rm -rf package/network/services/ppp
+svn co https://github.com/Ljzkirito/openwrt-packages/trunk/ppp package/network/services/ppp
+#交换Lan Wan 接口
+sed -i 's/wan\" \"eth0/wan\" \"eth1/g' target/linux/rockchip/armv8/base-files/etc/board.d/01_leds
+sed -i 's/lan\" \"eth1/lan\" \"eth0/g' target/linux/rockchip/armv8/base-files/etc/board.d/01_leds
+sed -i "s/eth1' 'eth0/eth0' 'eth1/g" target/linux/rockchip/armv8/base-files/etc/board.d/02_network

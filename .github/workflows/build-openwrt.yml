@@ -150,6 +150,7 @@ jobs:
         touch release.txt
         echo "## Offical Openwrt Release $(date +"%Y.%m.%d-%H:%M")" >> release.txt
         echo "- ext4-sysupgrade.img.gz" >> release.txt
+        echo "  md5: $(md5sum ${{ env.FIRMWARE }}/*sysupgrade.img.gz | cut -d" " -f1)" >> release.txt
         echo "  sha256: $(cat ${{ env.FIRMWARE }}/sha256sums | grep -oE ".*ext4-sysupgrade.img.gz" | grep -oE "\w{64}")" >> release.txt
         echo "::set-output name=status::success"
 
@@ -163,9 +164,7 @@ jobs:
         body_path: release.txt
         files: |
           ${{ env.FIRMWARE }}/*sysupgrade.img.gz
-          ${{ env.FIRMWARE }}/*ssr-plus*.ipk
-          ${{ env.FIRMWARE }}/*passwall*.ipk
-          ${{ env.FIRMWARE }}/xray*.ipk
+          ${{ env.FIRMWARE }}/*.ipk
 
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main

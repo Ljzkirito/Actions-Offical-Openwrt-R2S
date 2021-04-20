@@ -10,6 +10,8 @@
 # Description: OpenWrt DIY script part 2 (After Update feeds)
 #
 
+# 修改 argon 为默认主题
+sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
 # 总是拉取主线golang版本，避免xray&v2ray编译错误
 pushd feeds/packages/lang
 rm -fr golang && svn co https://github.com/openwrt/packages/trunk/lang/golang

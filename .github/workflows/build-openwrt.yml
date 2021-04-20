@@ -82,7 +82,7 @@ jobs:
       run: |
         chmod +x create_acl_for_luci.sh
         cd openwrt
-        $GITHUB_WORKSPACE/create_acl_for_luci.sh
+        $GITHUB_WORKSPACE/create_acl_for_luci.sh -a
 
     - name: Patch feeds
       run: |

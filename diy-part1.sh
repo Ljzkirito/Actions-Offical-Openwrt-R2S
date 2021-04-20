@@ -49,3 +49,5 @@ sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
 sed -i 's/libustream-wolfssl/libustream-openssl/g' include/target.mk
 # base-files: upgrade: use zcat command provided by busybox
 sed -i 's/"zcat/"busybox zcat/g' package/base-files/files/lib/upgrade/common.sh
+# toolchain: optimize for performance instead of size
+sed -i 's/CPU_CFLAGS = -Os -pipe/CPU_CFLAGS = -O2 -pipe/g' include/target.mk

@@ -1,0 +1,30 @@
+From b5f171b2b73689247da4eaa5a25a8a90a9be0c61 Mon Sep 17 00:00:00 2001
+From: Chuck Fan <fanck0605@qq.com>
+Date: Tue, 9 Mar 2021 17:42:57 +0800
+Subject: [PATCH] base-files: upgrade: use zcat command provided by busybox
+
+Calling `switch_to_ramfs()` will not copy the gzip executable
+(/bin/gzip) to ramfs, but `/bin/zcat` will call `/bin/gzip` when
+package gzip is installed, instead of the busybox-supplied zcat.
+This will cause `zcat` to fail to find `gzip`, then cause the
+sysupgrade to fail. Adding the `busybox` prefix here will solve
+the problem.
+
+Signed-off-by: Chuck Fan <fanck0605@qq.com>
+---
+ package/base-files/files/lib/upgrade/common.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/package/base-files/files/lib/upgrade/common.sh b/package/base-files/files/lib/upgrade/common.sh
+index 968893e22635..31ffc3cf034a 100644
+--- a/package/base-files/files/lib/upgrade/common.sh
++++ b/package/base-files/files/lib/upgrade/common.sh
+@@ -95,7 +95,7 @@ get_image() { # <source> [ <command> ]
+ 	if [ -z "$cmd" ]; then
+ 		local magic="$(dd if="$from" bs=2 count=1 2>/dev/null | hexdump -n 2 -e '1/1 "%02x"')"
+ 		case "$magic" in
+-			1f8b) cmd="zcat";;
++			1f8b) cmd="busybox zcat";;
+ 			425a) cmd="bzcat";;
+ 			*) cmd="cat";;
+ 		esac

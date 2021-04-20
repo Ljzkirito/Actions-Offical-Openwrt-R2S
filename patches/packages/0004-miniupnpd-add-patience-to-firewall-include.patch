@@ -1,0 +1,55 @@
+From 679a7b69ee4313014f0940504a1873faeca0f9fd Mon Sep 17 00:00:00 2001
+From: Kevin Darbyshire-Bryant <ldir@darbyshire-bryant.me.uk>
+Date: Mon, 8 Mar 2021 11:09:21 +0000
+Subject: [PATCH] miniupnpd: add patience to firewall include
+
+Occasionally, mostly at startup, miniupnpd reports "Another app is
+currently holding the xtables lock. Perhaps you want to use the -w
+option?"
+
+Take iptables' advice and wait up to 1 second before giving up.
+
+Signed-off-by: Kevin Darbyshire-Bryant <ldir@darbyshire-bryant.me.uk>
+---
+ net/miniupnpd/Makefile               | 2 +-
+ net/miniupnpd/files/firewall.include | 7 ++++---
+ 2 files changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/net/miniupnpd/Makefile b/net/miniupnpd/Makefile
+index 64e7667a466b..b597b596f96c 100644
+--- a/net/miniupnpd/Makefile
++++ b/net/miniupnpd/Makefile
+@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
+ 
+ PKG_NAME:=miniupnpd
+ PKG_VERSION:=2.2.1
+-PKG_RELEASE:=1
++PKG_RELEASE:=2
+ 
+ PKG_SOURCE_URL:=https://miniupnp.tuxfamily.org/files
+ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+diff --git a/net/miniupnpd/files/firewall.include b/net/miniupnpd/files/firewall.include
+index 911e0675c0c8..4fd483974306 100644
+--- a/net/miniupnpd/files/firewall.include
++++ b/net/miniupnpd/files/firewall.include
+@@ -1,8 +1,9 @@
+ #!/bin/sh
+ # miniupnpd integration for firewall3
+ 
+-IPTABLES=/usr/sbin/iptables
+-IP6TABLES=/usr/sbin/ip6tables
++IPTABLES="/usr/sbin/iptables"
++IP6TABLES="/usr/sbin/ip6tables"
++IPTARGS="-w 1"
+ 
+ $IPTABLES -t filter -N MINIUPNPD 2>/dev/null
+ $IPTABLES -t nat -N MINIUPNPD 2>/dev/null
+@@ -19,7 +20,7 @@ iptables_prepend_rule() {
+ 	local chain="$3"
+ 	local target="$4"
+ 
+-	$iptables -t "$table" -I "$chain" $($iptables -t "$table" --line-numbers -nL "$chain" | \
++	$iptables "$IPTARGS" -t "$table" -I "$chain" $($iptables "$IPTARGS" -t "$table" --line-numbers -nL "$chain" | \
+ 		sed -ne '$s/[^0-9].*//p') -j "$target"
+ }
+ 

@@ -37,12 +37,6 @@ popd
 # Add luci-theme-argon
 git clone --depth=1 https://github.com/jerrykuku/luci-theme-argon package/diy/luci-theme-argon
 #git clone --depth=1 https://github.com/jerrykuku/luci-app-argon-config package/diy/luci-app-argon-config
-# Change dnsmasq to dnsmasq-full
-sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
 # 使用官方ppp 2.4.9
 rm -rf package/network/services/ppp
 svn co https://github.com/Ljzkirito/openwrt-packages/trunk/ppp package/network/services/ppp
-#交换Lan Wan 接口
-sed -i 's/wan\" \"eth0/wan\" \"eth1/g' target/linux/rockchip/armv8/base-files/etc/board.d/01_leds
-sed -i 's/lan\" \"eth1/lan\" \"eth0/g' target/linux/rockchip/armv8/base-files/etc/board.d/01_leds
-sed -i "s/eth1' 'eth0/eth0' 'eth1/g" target/linux/rockchip/armv8/base-files/etc/board.d/02_network

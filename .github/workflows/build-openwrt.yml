@@ -79,8 +79,8 @@ jobs:
         for feed in $feed_list; do
             [ -d "$GITHUB_WORKSPACE/patches/$feed" ] &&
                 {
-                    cd "$GITHUB_WORKSPACE/openwrt/feeds/$feed"
-                    cat "$GITHUB_WORKSPACE/patches/$feed"/*.patch | patch -p1
+                    cd $GITHUB_WORKSPACE/openwrt/feeds/$feed
+                    cat $GITHUB_WORKSPACE/patches/$feed/*.patch | patch -p1
                 }
         done
 

@@ -43,3 +43,7 @@ svn co https://github.com/Ljzkirito/openwrt-packages/trunk/ppp package/network/s
 # version.mk: use tencent's opkg mirror
 sed -i 's/downloads.openwrt.org/mirrors.cloud.tencent.com/g' include/version.mk
 sed -i 's/downloads.openwrt.org/mirrors.cloud.tencent.com/g' package/base-files/image-config.in
+# Change dnsmasq to dnsmasq-full
+sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
+# target.mk: use libustream-openssl instead of libustream-wolfssl
+sed -i 's/libustream-wolfssl/libustream-openssl/g' include/target.mk

@@ -47,3 +47,5 @@ sed -i 's/downloads.openwrt.org/mirrors.cloud.tencent.com/g' package/base-files/
 sed -i 's/dnsmasq/dnsmasq-full/g' include/target.mk
 # target.mk: use libustream-openssl instead of libustream-wolfssl
 sed -i 's/libustream-wolfssl/libustream-openssl/g' include/target.mk
+# base-files: upgrade: use zcat command provided by busybox
+sed -i 's/"zcat/"busybox zcat/g' package/base-files/files/lib/upgrade/common.sh

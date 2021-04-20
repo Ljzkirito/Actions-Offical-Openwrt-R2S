@@ -72,17 +72,22 @@ jobs:
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
+    - name: Convert translation
+      run: |
+        chmod +x convert_translation.sh
+        cd openwrt/package
+        $GITHUB_WORKSPACE/convert_translation.sh
+
+    - name: Create acl files
+      run: |
+        chmod +x create_acl_for_luci.sh
+        cd openwrt
+        $GITHUB_WORKSPACE/create_acl_for_luci.sh
+
     - name: Patch feeds
       run: |
-        cd openwrt
-        feed_list=$(awk '/^src-git/ { print $2 }' feeds.conf.default)
-        for feed in $feed_list; do
-            [ -d "$GITHUB_WORKSPACE/patches/$feed" ] &&
-                {
-                    cd $GITHUB_WORKSPACE/openwrt/feeds/$feed
-                    cat $GITHUB_WORKSPACE/patches/$feed/*.patch | patch -p1
-                }
-        done
+        cd openwrt/feeds/luci
+        cat $GITHUB_WORKSPACE/patches/luci/*.patch | patch -p1
 
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a

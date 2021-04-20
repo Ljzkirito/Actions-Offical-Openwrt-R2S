@@ -40,3 +40,6 @@ git clone --depth=1 https://github.com/jerrykuku/luci-theme-argon package/diy/lu
 # 使用官方ppp 2.4.9
 rm -rf package/network/services/ppp
 svn co https://github.com/Ljzkirito/openwrt-packages/trunk/ppp package/network/services/ppp
+# version.mk: use tencent's opkg mirror
+sed -i 's/downloads.openwrt.org/mirrors.cloud.tencent.com/g' include/version.mk
+sed -i 's/downloads.openwrt.org/mirrors.cloud.tencent.com/g' package/base-files/image-config.in

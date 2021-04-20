@@ -12,6 +12,9 @@
 
 # 修改 argon 为默认主题
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
+# Custom miniupnp
+rm -fr feeds/packages/net/miniupnpd
+svn co https://github.com/Ljzkirito/openwrt-packages/trunk/miniupnpd feeds/packages/net/miniupnpd
 # 总是拉取主线golang版本，避免xray&v2ray编译错误
 pushd feeds/packages/lang
 rm -fr golang && svn co https://github.com/openwrt/packages/trunk/lang/golang

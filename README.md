@@ -12,6 +12,7 @@
 - [Passwall](https://github.com/xiaorouji/openwrt-passwall/tree/main/luci-app-passwall)
 - [UPnP 2.2.1-2](https://github.com/Ljzkirito/openwrt-packages/tree/main/miniupnpd)
 - 网络唤醒
+- bbr加速
 - Argon 主题
 
 ## Config文件生成参考
@@ -24,7 +25,7 @@ sudo sed -i 's#http://security.ubuntu.com#https://mirrors.huaweicloud.com#' /etc
 sudo apt update
 sudo apt upgrade -y
 sudo apt-get -y install subversion libncurses5-dev git git-core build-essential unzip bzip2 python2.7
-git clone https://git.openwrt.org/openwrt/openwrt.git
+git clone https://git.openwrt.org/openwrt/openwrt.git -b openwrt-21.02
 cd openwrt
 ./scripts/feeds update -a && ./scripts/feeds install -a
 make menuconfig
@@ -36,6 +37,7 @@ make defconfig
 
 ## 相关参考
 
+- [Patch来源](https://github.com/fanck0605/openwrt-nanopi-r2s)
 - [超简单云编译](https://github.com/281677160/build-openwrt)
 - [借助 GitHub Actions 的 OpenWrt 在线集成自动编译](https://github.com/KFERMercer/OpenWrt-CI)
 - [qughij/openwrt-xiaoyu_xy-c5](https://github.com/qughij/openwrt-xiaoyu_xy-c5)

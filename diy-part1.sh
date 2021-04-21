@@ -58,3 +58,5 @@ sed -i 's/libustream-wolfssl/libustream-openssl/g' include/target.mk
 sed -i 's/"zcat/"busybox zcat/g' package/base-files/files/lib/upgrade/common.sh
 # toolchain: optimize for performance instead of size
 sed -i 's/CPU_CFLAGS = -Os -pipe/CPU_CFLAGS = -O2 -pipe/g' include/target.mk
+# kernel: set default nf_conntrack_max to 65536
+sed -i 's/nf_conntrack_max=16384/nf_conntrack_max=65536/g' package/kernel/linux/files/sysctl-nf-conntrack.conf

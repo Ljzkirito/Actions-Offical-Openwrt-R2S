@@ -60,3 +60,7 @@ sed -i 's/"zcat/"busybox zcat/g' package/base-files/files/lib/upgrade/common.sh
 sed -i 's/CPU_CFLAGS = -Os -pipe/CPU_CFLAGS = -O2 -pipe/g' include/target.mk
 # kernel: set default nf_conntrack_max to 65536
 sed -i 's/nf_conntrack_max=16384/nf_conntrack_max=65536/g' package/kernel/linux/files/sysctl-nf-conntrack.conf
+# rockchip: swap wan and lan for NanoPi R2S
+sed -i 's/wan\" \"eth0/wan\" \"eth1/g' target/linux/rockchip/armv8/base-files/etc/board.d/01_leds
+sed -i 's/lan\" \"eth1/lan\" \"eth0/g' target/linux/rockchip/armv8/base-files/etc/board.d/01_leds
+sed -i "s/eth1' 'eth0/eth0' 'eth1/g" target/linux/rockchip/armv8/base-files/etc/board.d/02_network

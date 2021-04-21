@@ -40,6 +40,13 @@ git clone --depth=1 https://github.com/jerrykuku/luci-theme-argon package/diy/lu
 # 使用官方ppp 2.4.9
 rm -rf package/network/services/ppp
 svn co https://github.com/Ljzkirito/openwrt-packages/trunk/ppp package/network/services/ppp
+# 更改时区
+sed -i "s/'UTC'/'CST-8'\n\t\tset system.@system[-1].zonename='Asia\/Shanghai'/g" package/base-files/files/bin/config_generate
+# 更改默认NTP服务器
+sed -i 's/0.openwrt.pool.ntp.org/ntp1.aliyun.com/g' package/base-files/files/bin/config_generate
+sed -i 's/1.openwrt.pool.ntp.org/time1.cloud.tencent.com/g' package/base-files/files/bin/config_generate
+sed -i 's/2.openwrt.pool.ntp.org/time.ustc.edu.cn/g' package/base-files/files/bin/config_generate
+sed -i 's/3.openwrt.pool.ntp.org/cn.pool.ntp.org/g' package/base-files/files/bin/config_generate
 # version.mk: use tencent's opkg mirror
 sed -i 's/downloads.openwrt.org/mirrors.cloud.tencent.com/g' include/version.mk
 sed -i 's/downloads.openwrt.org/mirrors.cloud.tencent.com/g' package/base-files/image-config.in

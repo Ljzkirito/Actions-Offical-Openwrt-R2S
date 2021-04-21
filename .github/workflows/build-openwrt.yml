@@ -72,6 +72,11 @@ jobs:
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
+    - name: Patch feeds
+      run: |
+        cd openwrt/feeds/luci
+        cat $GITHUB_WORKSPACE/patches/luci/*.patch | patch -p1
+
     - name: Convert translation
       run: |
         chmod +x convert_translation.sh
@@ -84,13 +89,13 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/create_acl_for_luci.sh -a
 
-    - name: Patch feeds
-      run: |
-        cd openwrt/feeds/luci
-        cat $GITHUB_WORKSPACE/patches/luci/*.patch | patch -p1
-
     - name: Install feeds
-      run: cd openwrt && ./scripts/feeds install -a
+      run: |
+        cd openwrt
+        ./scripts/feeds uninstall -a
+        ./scripts/feeds install -f -p passwall -a
+        ./scripts/feeds install -f -p helloworld -a
+        ./scripts/feeds install -a
 
     - name: Load custom configuration
       run: |
